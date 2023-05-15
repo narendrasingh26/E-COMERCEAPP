@@ -1,0 +1,13 @@
+.image-zoom {
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .image-zoom img {
+    transition: transform 0.3s;
+  }
+  
+  .image-zoom:hover img {
+    transform: scale(1.1);
+  }
+  
