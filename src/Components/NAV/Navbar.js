@@ -5,7 +5,7 @@ import Cart from "./Cart";
 function Navbar() {
   return (
     <div>
-      <nav style={{backgroundColor:'black',height:'2rem'}}>
+      <nav style={{backgroundColor:'black',height:'3rem'}}>
         <div className="container-fluid">
           <div style={{marginLeft:'57rem'}}><Cart/></div>
         </div>

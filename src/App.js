@@ -1,12 +1,15 @@
 import React from "react";
 import ProductList from "./Components/ProductList";
 import Navbar from "./Components/NAV/Navbar";
+import { CartProvider } from "./Components/CartContext";
 
 function App() {
   return (
     <div>
-      <Navbar/>
-      <ProductList/>
+      <CartProvider>
+        <Navbar />
+        <ProductList />
+      </CartProvider>
     </div>
   );
 }
