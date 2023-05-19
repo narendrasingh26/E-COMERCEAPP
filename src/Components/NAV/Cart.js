@@ -25,11 +25,11 @@ const Cart = () => {
     updateQuantity(productId, updatedQuantity);
   };
   const handleCartButtonClick = () => {
-    setIsCartOpen(!isCartOpen); // Toggle the cart's open/closed state
+    setIsCartOpen(!isCartOpen); 
   };
 
   const handleCloseCart = () => {
-    setIsCartOpen(false); // Close the cart
+    setIsCartOpen(false); 
   };
 
   const totalAmount = cart.reduce(
@@ -45,12 +45,19 @@ const Cart = () => {
   return (
     <div className="cart-container">
       <button
+        type="button"
+        class="btn btn-primary position-relative "
+        style={{
+          fontSize: "0.75rem",
+          padding: "0.25rem 0.5rem",
+          fontWeight: "bold",
+        }}
         onClick={handleCartButtonClick}
-        className="btn btn-primary mt-1 btn-sm"
-        style={{ width: "4rem" }}
       >
-        <span style={{ marginRight: "1rem" }}>Cart</span>
-        <span>{total}</span>
+        CART{" "} {total > 0 && (
+        <span class="position-absolute top-0 start-100 translate-middle badge border border-light rounded-pill bg-dark ">
+          {total}
+        </span>)}
       </button>
 
       <div>
@@ -112,7 +119,7 @@ const Cart = () => {
                         <button
                           style={{
                             borderRadius: "20%",
-                            backgroundColor: "green",
+                            backgroundColor: "gray",
                           }}
                           onClick={() =>
                             handleDecreaseQuantity(item.id, item.quantity)
@@ -124,7 +131,7 @@ const Cart = () => {
                         <button
                           style={{
                             borderRadius: "20%",
-                            backgroundColor: "green",
+                            backgroundColor: "gray",
                             width: "1.5rem",
                           }}
                           onClick={() =>
@@ -150,14 +157,13 @@ const Cart = () => {
             <div
               style={{
                 marginLeft: "16rem",
-                // fontWeight: "bold",
+                fontWeight: "bold",
                 marginTop: "3rem",
                 fontFamily: "serif",
                 fontSize: "1.5rem",
               }}
             >
-              Total:
-              <span>{totalAmount}</span>
+              Total :<span>{totalAmount}</span>
             </div>
             <Button
               className="btn btn-info"
