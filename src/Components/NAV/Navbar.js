@@ -1,49 +1,32 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { Navbar, Nav } from "react-bootstrap";
+import Cart from './Cart'
 
-import { Link } from "react-router-dom/cjs/react-router-dom";
-
-function Navbar() {
+function CNavbar() {
   return (
-    <div>
-      <nav style={{ backgroundColor: "black", height: "3rem" }}>
-        <div className="d-flex  flex-wrap">
-          <Link
-            to="/home"
-            style={{
-              marginLeft: "23rem",
-              marginTop: ".5rem",
-              color: "white",
-              textDecoration: "none",
-            }}
-          >
-            HOME
-          </Link>
-          <Link
-            to="/store"
-            style={{
-              marginLeft: "4rem",
-              marginTop: ".5rem",
-              color: "white",
-              textDecoration: "none",
-            }}
-          >
+    <Navbar bg="dark" variant="dark" expand="md" className="sticky-top">
+      
+      <Navbar.Brand as={Link} to="/home">
+        HOME
+      </Navbar.Brand>
+      <Navbar.Toggle aria-controls="navbar-nav" />
+      <Navbar.Collapse id="navbar-nav">
+        <Nav className="mr-auto">
+          <Nav.Link as={Link} to="/store">
             STORE
-          </Link>
-          <Link
-            to="/about"
-            style={{
-              marginLeft: "4rem",
-              marginTop: ".5rem",
-              color: "white",
-              textDecoration: "none",
-            }}
-          >
+          </Nav.Link>
+          <Nav.Link as={Link} to="/about">
             ABOUT
-          </Link>
-        </div>
-      </nav>
-    </div>
+          </Nav.Link>
+          <Nav.Link as={Link} to="/contact">
+          Contact US
+          </Nav.Link>
+        </Nav>
+      </Navbar.Collapse>
+      <div><div style={{marginRight:'2rem',marginTop:'-.5rem'}}><Cart/></div></div>
+    </Navbar>
   );
 }
 
-export default Navbar;
+export default CNavbar;

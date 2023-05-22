@@ -72,7 +72,7 @@ function Home() {
             color: "white",
             width: "15rem",
             borderColor: "#97c1f6",
-            marginTop: "2rem",
+            marginTop: "1rem",
           }}
         >
           Get Our Lattest Album
@@ -89,12 +89,12 @@ function Home() {
       <h2 className="border-bottom py-2">TOURS</h2>
 
        {listt.map((list)=>(
-        <div key={list.id} className=" container-sm border-bottom py-2" style={{width:'35rem',fontFamily:'serif',fontSize:'14px'}}>
+        <div key={list.id} className=" container-md border-bottom py-2" style={{width:'35rem',fontFamily:'serif',fontSize:'14px'}}>
           <div className="row">
             <span className="col">{list.date}</span>
             <span className="col">{list.city}</span>
             <span className="col">{list.place}</span>
-            <button style={{color:'white',backgroundColor:'skyblue',fontWeight:'bold',borderRadius:'5px'}} className="btn btn-sm col">BUY TICKETS</button>
+            <button style={{color:'white',backgroundColor:'skyblue',fontWeight:'bold',borderRadius:'5px',height:'30px'}} className="btn btn-sm col">BUY TICKETS</button>
             
           </div>
 

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Button, Container } from "react-bootstrap";
 import { CartContext } from "./CartContext";
 import "./ProductList.css";
-import Cart from "./NAV/Cart";
+// import Cart from "./NAV/Cart";
 
 let Products = [
   {
@@ -51,14 +51,14 @@ const ProductList = () => {
 
   return (
     <div>
-      <div style={{marginLeft:'59rem',marginTop:'-2.5rem'}}><Cart/></div>
+      {/* <div style={{marginLeft:'-50rem',marginTop:'-2.5rem'}}><Cart/></div> */}
       <div
         style={{
           textAlign: "center",
           fontFamily: "serif",
           backgroundColor: "gray",
           
-          marginTop:'13px'
+          // marginTop:'13px'
         }}
       >
         <h1
