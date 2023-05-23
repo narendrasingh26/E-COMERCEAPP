@@ -18,11 +18,11 @@ const Contact = () => {
     e.preventDefault();
 
     
-    const formData = {
-      name: name,
-      email: email,
-      phone: phone,
-    };
+    // const formData = {
+    //   name: name,
+    //   email: email,
+    //   phone: phone,
+    // };
 
     
     // firebase.database().ref("contacts").push(formData);

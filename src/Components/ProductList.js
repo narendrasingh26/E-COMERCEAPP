@@ -3,31 +3,52 @@ import { Button, Container } from "react-bootstrap";
 import { CartContext } from "./CartContext";
 import "./ProductList.css";
 // import Cart from "./NAV/Cart";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
-let Products = [
+export let Products = [
   {
     id: "a1",
     title: "Album 1",
+    name:'Arijit Singh',
     price: 100,
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
+    image: "/arijeet.webp",
+    image2:'/ar2.jpg',
+    image3:'/ar3.jpg',
+    heading:"Meri Kahani",
+    des:' Meri Kahani is the debut studio album by Arijit Singh, one of the most renowned Indian playback singers. The album features a collection of soulful tracks, showcasing Arijit Singh mesmerizing vocals and emotional depth'
   },
   {
     id: "b2",
     title: "Album 2",
+    name:'Jubin Nautiyal',
     price: 50,
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
+    image: "/jubin.jpg",
+    image2:'/j2.jpg',
+    image3:'/j3.jpg',
+    heading:"Breaking The Rules",
+    des:'"Breaking The Rules" is a mesmerizing album by Jubin Nautiyal, showcasing his exceptional vocal prowess and captivating melodies. With its soulful tracks and heartfelt lyrics, this album takes listeners on a musical journey filled with emotions and moments of pure musical brilliance.'
   },
   {
     id: "c3",
     title: "Album 3",
+    name:'Kailash Kher',
     price: 70,
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
+    image: "/kailash.jpg",
+    image2:'/kl2.jpg',
+    image3:'/kl3.jpg',
+    heading:"Jhoomo Re",
+    des:" Jhoomo Re is a vibrant album by Kailash Kher, known for his powerful and soul-stirring vocals. With its energetic beats and infectious melodies, this album invites listeners to immerse themselves in the joyous celebration of music. Filled with Kailash Kher's signature style and heartfelt lyrics, Jhoomo Re is a must-listen for fans of Indian fusion and Sufi music."
   },
   {
     id: "d4",
     title: "Album 4",
+    name:'K.K',
     price: 100,
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%204.png",
+    image: "/kk.jpg",
+    image2:'/kk2.jpg',
+    image3:'/kk3.jpg',
+    heading:"Unstopable",
+    des:'Unstoppable is an electrifying album by KK, renowned for his versatile and mesmerizing voice. With its dynamic and captivating tracks, this album takes listeners on an unstoppable musical journey. Packed with soulful melodies and powerful lyrics, Unstoppable showcases KK exceptional talent and leaves a lasting impact on every listener.'
   },
 ];
 
@@ -105,12 +126,12 @@ const ProductList = () => {
                   {product.title}
                 </h2>
                 <div className="image-zoom">
-                  <img
+                 <Link to={`/productdetails/${product.id}`}> <img
                     variant="top"
-                    src={product.imageUrl}
+                    src={product.image}
                     alt="productimg"
-                    style={{ height: "20%", width: "80%" }}
-                  />
+                    style={{ height: "20%", width: "80%" ,borderRadius:'5px'}}
+                  /></Link>
                 </div>
                 <div>
                   <div style={{ fontWeight: "bold" }}>${product.price}</div>

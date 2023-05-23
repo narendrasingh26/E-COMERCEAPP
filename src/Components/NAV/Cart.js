@@ -107,9 +107,9 @@ const Cart = () => {
                   <tr key={index}>
                     <td>
                       <img
-                        src={item.imageUrl}
+                        src={item.image}
                         alt={item.title}
-                        style={{ height: "4rem", borderRadius: ".5rem" }}
+                        style={{ height: "4rem", borderRadius: ".5rem", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)" }}
                       />
                       {item.title}
                     </td>

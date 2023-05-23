@@ -6,6 +6,8 @@ import About from "./Components/Pages/About";
 import { Route } from "react-router-dom";
 import Home from "./Components/Pages/Home";
 import Contact from "./Components/Pages/Contact";
+import ProductDetails from "./Components/Pages/ProductDetails";
+
 
 function App() {
   return (
@@ -23,6 +25,9 @@ function App() {
         </Route>
         <Route path="/contact">
           <Contact/>
+        </Route>
+        <Route path="/productdetails/:id">
+          <ProductDetails/>
         </Route>
       </CartProvider>
     </div>
