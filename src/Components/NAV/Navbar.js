@@ -13,7 +13,7 @@ function CNavbar() {
       <Navbar.Toggle aria-controls="navbar-nav" />
       <Navbar.Collapse id="navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link as={Link} to="/store">
+          <Nav.Link as={Link} to="/login">
             STORE
           </Nav.Link>
           <Nav.Link as={Link} to="/about">
@@ -21,6 +21,9 @@ function CNavbar() {
           </Nav.Link>
           <Nav.Link as={Link} to="/contact">
           Contact US
+          </Nav.Link>
+          <Nav.Link as={Link} to="/login">
+          Login
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>

@@ -1,13 +1,4 @@
 import React, { useState } from "react";
-// import firebase from "firebase/app";
-// import "firebase/database";
-
-// const firebaseConfig = {
-//   
-// };
-
-
-// firebase.initializeApp(firebaseConfig);
 
 const Contact = () => {
   const [name, setName] = useState("");
@@ -17,17 +8,6 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    
-    // const formData = {
-    //   name: name,
-    //   email: email,
-    //   phone: phone,
-    // };
-
-    
-    // firebase.database().ref("contacts").push(formData);
-
-    
     setName("");
     setEmail("");
     setPhone("");

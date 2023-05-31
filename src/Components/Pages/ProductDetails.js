@@ -6,7 +6,7 @@ import '../ProductList.css'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
 const ProductDetails = () => {
-  const { cart, addToCart } = useContext(CartContext);
+  const { addToCart } = useContext(CartContext);
   const history=useHistory();
   const { id } = useParams();
   const product = Products.find((product) => product.id === id);
@@ -34,7 +34,7 @@ const ProductDetails = () => {
         <h1>{product.heading}</h1>
         <p>Artist:{product.name}</p>
         <p>Genre: Bollywood, Pop</p>
-        <p>Release Date: September 3, 2013</p>
+        <p>Release Date: {product.date}</p>
         <p>Label: Sony Music</p>
         <p >Description:{product.des}</p>
         <button className="btn btn-primary" onClick={AddCart}>Add to Cart</button>

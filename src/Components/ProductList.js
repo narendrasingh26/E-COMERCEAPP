@@ -8,6 +8,7 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 export let Products = [
   {
     id: "a1",
+    date:'june 23, 2023',
     title: "Album 1",
     name:'Arijit Singh',
     price: 100,
@@ -20,6 +21,7 @@ export let Products = [
   {
     id: "b2",
     title: "Album 2",
+    date:'july 12, 2023',
     name:'Jubin Nautiyal',
     price: 50,
     image: "/jubin.jpg",
@@ -31,6 +33,7 @@ export let Products = [
   {
     id: "c3",
     title: "Album 3",
+    date:'August 13, 2023',
     name:'Kailash Kher',
     price: 70,
     image: "/kailash.jpg",
@@ -42,6 +45,7 @@ export let Products = [
   {
     id: "d4",
     title: "Album 4",
+    date:'September 20, 2023',
     name:'K.K',
     price: 100,
     image: "/kk.jpg",
