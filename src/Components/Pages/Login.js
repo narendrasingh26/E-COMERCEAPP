@@ -1,113 +1,99 @@
-import React, { useState } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../FireBase';
-import { useHistory } from 'react-router-dom';
+import { useState, useRef,useContext } from "react";
+import { useHistory } from "react-router-dom";
+import classes from "./Login.module.css";
+import AuthContext from "../../store/auth-context";
 
 const Login = () => {
-  const history = useHistory();
-  const [values, setValues] = useState({
-    email: '',
-    pass: '',
-  });
+  const history=useHistory();
+  const emailInputRef = useRef();
+  const passwordInputRef = useRef();
 
-  const [errorMsg, setErrorMsg] = useState('');
-  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
+  const authCtx=useContext(AuthContext)
 
-  const handleSubmit = (event) => {
+  const switchAuthModeHandler = () => {
+    setIsLogin((prevState) => !prevState);
+  };
+
+  const submitHandler = async(event) => {
     event.preventDefault();
-    if (!values.email || !values.pass) {
-      setErrorMsg('Fill all fields!!');
-      return;
+    const emailEntered = emailInputRef.current.value;
+    const passwordEntered = passwordInputRef.current.value;
+    let url;
+    if (isLogin) {
+      url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCASQbUtn0IDobv843kGasyCANypbX3Ei8";
+    } else {
+      url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCASQbUtn0IDobv843kGasyCANypbX3Ei8";
     }
-    setErrorMsg('');
-    setSubmitButtonDisabled(true);
-    console.log(values);
-    signInWithEmailAndPassword(auth, values.email, values.pass)
-      .then(async (res) => {
-        setSubmitButtonDisabled(false);
-        console.log(res);
-        history.push('/home');
-      })
-      .catch((err) => {
-        setSubmitButtonDisabled(false);
-        if (err.code === 'auth/wrong-password') {
-          setErrorMsg('Incorrect password');
-        } else {
-          // setErrorMsg('An error occurred. Please try again.');
-          history.push('/store');
-        }
-        console.log('Error=', err);
-      });
+    sendData(url,emailEntered,passwordEntered).then((result)=>{
+      console.log('result',result);
+      authCtx.login(result.idToken)
+      emailInputRef.current.value='';
+      passwordInputRef.current.value='';
+      history.replace('/store')
+
+
+    }).catch((error)=>{
+      console.log(error);
+    })
+  };
+
+  const sendData = async (url, email, password) => {
+    const response = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify({
+        email: email,
+        password: password,
+        returnSecureToken: true,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    if (response.ok) {
+      return data;
+    }
+    let errorMessage = "Authentication Faild !!";
+    if (data && data.error && data.error.message) {
+      errorMessage = data.error.message;
+      alert(errorMessage);
+    }
+    throw new Error(errorMessage);
   };
 
   return (
-    <div>
-      <div>
-        <h2
-          style={{
-            textAlign: 'center',
-            borderBottom: '1px solid black',
-            width: 'fit-content',
-            margin: 'auto',
-          }}
-        >
-          Login
-        </h2>
-        <form
-          className="container-sm"
-          style={{
-            marginLeft: '20rem',
-            backgroundColor: 'skyblue',
-            width: '25rem',
-            marginTop: '2rem',
-            borderRadius: '5px',
-          }}
-          onSubmit={handleSubmit}
-          disabled={submitButtonDisabled}
-        >
-          <div className="col-md-6">
-            <label htmlFor="email" className="form-label">
-              Email
-            </label>
-            <input
-              style={{ width: '23rem' }}
-              type="email"
-              className="form-control"
-              id="email"
-              placeholder="Enter email here"
-              onChange={(event) =>
-                setValues((prev) => ({ ...prev, email: event.target.value }))
-              }
-            ></input>
-          </div>
+    <section className={classes.auth}>
+      <h1>{isLogin ? "Login" : "Sign Up"}</h1>
+      <form onSubmit={submitHandler}>
+        <div className={classes.control}>
+          <label htmlFor="email">Your Email</label>
+          <input type="email" id="email" required ref={emailInputRef} />
+        </div>
+        <div className={classes.control}>
+          <label htmlFor="password">Your Password</label>
+          <input
+            type="password"
+            id="password"
+            required
+            ref={passwordInputRef}
+          />
+        </div>
 
-          <div className="col-md-6">
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
-            <input
-              style={{ width: '23rem' }}
-              type="tel"
-              className="form-control"
-              id="phone"
-              placeholder="Enter password here"
-              onChange={(event) =>
-                setValues((prev) => ({ ...prev, pass: event.target.value }))
-              }
-            ></input>
-          </div>
-
+        <div className={classes.actions}>
+          <button>{isLogin ? "Login" : "Create Account"}</button>
           <button
-            type="submit"
-            className="btn btn-primary"
-            style={{ marginLeft: '9rem', marginTop: '1rem' }}
+            type="button"
+            className={classes.toggle}
+            onClick={switchAuthModeHandler}
           >
-            Submit
+            {isLogin ? "Create new account" : "Login with existing account"}
           </button>
-        </form>
-        <h2 style={{ textAlign: 'center', color: 'red', marginTop: '1rem' }}>{errorMsg}</h2>
-      </div>
-    </div>
+        </div>
+      </form>
+    </section>
   );
 };
 

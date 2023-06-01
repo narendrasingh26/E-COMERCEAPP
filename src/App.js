@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { } from "react";
 import ProductList from "./Components/ProductList";
 import CNavbar from "./Components/NAV/Navbar";
 import { CartProvider } from "./Components/CartContext";
@@ -8,20 +8,11 @@ import Home from "./Components/Pages/Home";
 import Contact from "./Components/Pages/Contact";
 import ProductDetails from "./Components/Pages/ProductDetails";
 import Login from "./Components/Pages/Login";
-import { auth } from "./FireBase";
-import { useState } from "react";
+import AuthContext from "./store/auth-context";
+import { useContext } from "react";
 
 function App() {
-const[userName,setUserName]=useState("");
-
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if(user){
-        setUserName(user.displayName)
-      }else setUserName('');
-      console.log(user);
-    });
-  }, []);
+  const authCtx=useContext(AuthContext);
   return (
     <div>
       <CartProvider>
@@ -29,11 +20,11 @@ const[userName,setUserName]=useState("");
         <Route path="/about">
           <About />
         </Route>
-        <Route path="/store">
+        {authCtx.isLoggedIn&&(<Route path="/store">
           <ProductList />
-        </Route>
+        </Route>)}
         <Route path="/home">
-          <Home name={userName}/>
+          <Home />
         </Route>
         <Route path="/contact">
           <Contact />
@@ -41,9 +32,9 @@ const[userName,setUserName]=useState("");
         <Route path="/productdetails/:id">
           <ProductDetails />
         </Route>
-        <Route path="/login">
+        {!authCtx.isLoggedIn&&(<Route path="/login">
           <Login />
-        </Route>
+        </Route>)}
       </CartProvider>
     </div>
   );

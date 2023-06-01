@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Button, Container } from "react-bootstrap";
 import { CartContext } from "./CartContext";
 import "./ProductList.css";
 // import Cart from "./NAV/Cart";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import axios from "axios";
 
 export let Products = [
   {
@@ -56,8 +57,36 @@ export let Products = [
   },
 ];
 
+const API_BASE_URL ='https://crudcrud.com/api/0131b725ab194dddac0135ac7f3a5bad/appData'
+
 const ProductList = () => {
   const { cart, addToCart } = useContext(CartContext);
+
+  useEffect(()=>{
+    const userEmail = 'user@example.com';
+    axios
+      .get(`${API_BASE_URL}/${userEmail}`)
+      .then((response) => {
+        
+        console.log(response.data);
+      })
+      .catch((error) => {
+        
+        console.error(error);
+      });
+  },[])
+
+  useEffect(() => {
+    const userEmail = "user@example.com";
+    axios
+      .put(`${API_BASE_URL}/${userEmail}`, cart)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [cart]);
 
   const handleAddToCart = (product) => {
     const existingItem = cart.find((item) => item.id === product.id);
@@ -72,6 +101,9 @@ const ProductList = () => {
       const newCartItem = { ...product, quantity: 1 };
       addToCart(newCartItem);
     }
+
+  
+   
   };
 
   return (
