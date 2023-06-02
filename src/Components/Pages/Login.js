@@ -1,21 +1,21 @@
-import { useState, useRef,useContext } from "react";
+import { useState, useRef, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import classes from "./Login.module.css";
 import AuthContext from "../../store/auth-context";
 
 const Login = () => {
-  const history=useHistory();
+  const history = useHistory();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
   const [isLogin, setIsLogin] = useState(true);
-  const authCtx=useContext(AuthContext)
+  const authCtx = useContext(AuthContext);
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
   };
 
-  const submitHandler = async(event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
     const emailEntered = emailInputRef.current.value;
     const passwordEntered = passwordInputRef.current.value;
@@ -27,17 +27,17 @@ const Login = () => {
       url =
         "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCASQbUtn0IDobv843kGasyCANypbX3Ei8";
     }
-    sendData(url,emailEntered,passwordEntered).then((result)=>{
-      console.log('result',result);
-      authCtx.login(result.idToken)
-      emailInputRef.current.value='';
-      passwordInputRef.current.value='';
-      history.replace('/store')
-
-
-    }).catch((error)=>{
-      console.log(error);
-    })
+    sendData(url, emailEntered, passwordEntered)
+      .then((result) => {
+        console.log("result", result);
+        authCtx.login(result.idToken);
+        emailInputRef.current.value = "";
+        passwordInputRef.current.value = "";
+        history.replace("/store");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const sendData = async (url, email, password) => {
@@ -69,11 +69,16 @@ const Login = () => {
       <h1>{isLogin ? "Login" : "Sign Up"}</h1>
       <form onSubmit={submitHandler}>
         <div className={classes.control}>
-          <label htmlFor="email">Your Email</label>
+          <label htmlFor="email" style={{ marginLeft: "-18rem" }}>
+            Your Email
+          </label>
           <input type="email" id="email" required ref={emailInputRef} />
         </div>
+
         <div className={classes.control}>
-          <label htmlFor="password">Your Password</label>
+          <label htmlFor="password" style={{ marginLeft: "-16rem" }}>
+            Your Password
+          </label>
           <input
             type="password"
             id="password"
