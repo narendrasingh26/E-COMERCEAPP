@@ -1,14 +1,15 @@
 import React, { useContext, useState } from "react";
 import { Button } from "react-bootstrap";
-import { CartContext } from "../CartContext";
+import { CartContext } from "../../store/CartContext";
 
 const Cart = () => {
-  const { cart, removeFromCart, updateQuantity } = useContext(CartContext);
+  // const { cart, removeFromCart, updateQuantity } = useContext(CartContext);
+  const cartCtx=useContext(CartContext);
 
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   const handleRemoveItem = (productId) => {
-    removeFromCart(productId);
+    cartCtx.removeCart(productId);
   };
 
   const handleDecreaseQuantity = (productId, quantity) => {
@@ -16,13 +17,13 @@ const Cart = () => {
       handleRemoveItem(productId);
     } else {
       const updatedQuantity = quantity - 1;
-      updateQuantity(productId, updatedQuantity);
+      cartCtx.updateAll(productId, updatedQuantity);
     }
   };
 
   const handleIncreaseQuantity = (productId, quantity) => {
     const updatedQuantity = quantity + 1;
-    updateQuantity(productId, updatedQuantity);
+    cartCtx.updateAll(productId, updatedQuantity);
   };
   const handleCartButtonClick = () => {
     setIsCartOpen(!isCartOpen); 
@@ -32,13 +33,13 @@ const Cart = () => {
     setIsCartOpen(false); 
   };
 
-  const totalAmount = cart.reduce(
+  const totalAmount = cartCtx.cart.reduce(
     (total, product) => total + product.price * product.quantity,
     0
   );
 
   let total = 0;
-  for (const el of cart) {
+  for (const el of cartCtx.cart) {
     total = total + el.quantity;
   }
 
@@ -46,7 +47,7 @@ const Cart = () => {
     <div className="cart-container">
       <button
         type="button"
-        class="btn btn-primary position-relative "
+        className="btn btn-primary position-relative "
         style={{
           fontSize: "0.75rem",
           padding: "0.25rem 0.5rem",
@@ -55,7 +56,7 @@ const Cart = () => {
         onClick={handleCartButtonClick}
       >
         CART{" "} {total > 0 && (
-        <span class="position-absolute top-0 start-100 translate-middle badge border border-light rounded-pill bg-dark ">
+        <span className="position-absolute top-0 start-100 translate-middle badge border border-light rounded-pill bg-dark ">
           {total}
         </span>)}
       </button>
@@ -103,7 +104,7 @@ const Cart = () => {
                 </tr>
               </thead>
               <tbody>
-                {cart.map((item, index) => (
+                {cartCtx.cart.map((item, index) => (
                   <tr key={index}>
                     <td>
                       <img

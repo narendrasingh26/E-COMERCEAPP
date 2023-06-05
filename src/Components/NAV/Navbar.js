@@ -40,12 +40,12 @@ function CNavbar() {
           )}
         </Nav>
         {isLoggedIn && <button type="button"
-        class="btn btn-primary position-relative "
+        className="btn btn-primary position-relative "
         style={{
           fontSize: "0.75rem",
           padding: "0.25rem 0.5rem",
           fontWeight: "bold",
-          marginLeft:'35rem',
+          marginLeft:'43rem',
           marginTop:'-5px'
         }} onClick={logoutHandler}>Logout</button>}
       </Navbar.Collapse>

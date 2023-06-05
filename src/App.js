@@ -1,7 +1,7 @@
 import React, { } from "react";
 import ProductList from "./Components/ProductList";
 import CNavbar from "./Components/NAV/Navbar";
-import { CartProvider } from "./Components/CartContext";
+import { CartProvider } from "./store/CartContext";
 import About from "./Components/Pages/About";
 import { Route } from "react-router-dom";
 import Home from "./Components/Pages/Home";

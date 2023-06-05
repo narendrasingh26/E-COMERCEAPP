@@ -19,6 +19,7 @@ const Login = () => {
     event.preventDefault();
     const emailEntered = emailInputRef.current.value;
     const passwordEntered = passwordInputRef.current.value;
+    const emailRegEx = emailEntered.replace(/[^a-zA-Z0-9 ]/g, "");
     let url;
     if (isLogin) {
       url =
@@ -31,6 +32,7 @@ const Login = () => {
       .then((result) => {
         console.log("result", result);
         authCtx.login(result.idToken);
+        localStorage.setItem("email", emailRegEx);
         emailInputRef.current.value = "";
         passwordInputRef.current.value = "";
         history.replace("/store");

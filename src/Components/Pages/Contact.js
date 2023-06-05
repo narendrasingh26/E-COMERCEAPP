@@ -21,7 +21,7 @@ const Contact = () => {
             textAlign: "center",
             borderBottom: "1px solid black",
             width: "fit-content",
-            margin: "auto",
+            marginLeft: "27rem",
           }}
         >
           Contact us
@@ -34,6 +34,7 @@ const Contact = () => {
             width: "25rem",
             marginTop: "2rem",
             borderRadius: "5px",
+            
           }}
           onSubmit={handleSubmit}
         >

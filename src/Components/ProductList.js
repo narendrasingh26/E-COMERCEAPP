@@ -1,9 +1,10 @@
-import React, { useContext ,useEffect} from "react";
+import React, { useContext, useEffect } from "react";
 import { Button, Container } from "react-bootstrap";
-import { CartContext } from "./CartContext";
+import { CartContext } from "../store/CartContext";
 import "./ProductList.css";
 
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import axios from "axios";
 
 export let Products = [
   {
@@ -57,24 +58,76 @@ export let Products = [
 ];
 
 const ProductList = () => {
-  const { cart, addToCart } = useContext(CartContext);
+  // const { cart, addToCart } = useContext(CartContext);
+  const cartCtx = useContext(CartContext);
+  const emailRegEx = localStorage.getItem("email");
+  let url = "https://crudcrud.com/api/7e549b7d41e84d749db87874040d3b4a";
 
-  
+  // useEffect(() => {
+  //   fetch(`${url}/cart${emailRegEx}`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       return cartCtx.addAll(data);
+  //     });
+  // }, [cartCtx, emailRegEx, url]);
 
-  const handleAddToCart = (product) => {
-    const existingItem = cart.find((item) => item.id === product.id);
+  useEffect(() => {
+    axios
+      .get(`${url}/cart${emailRegEx}`)
+      .then((res) => {
+        const data = res.data;
+        cartCtx.addAll(data);
+      })
+      .catch((error) => {
+        console.log("Error fetching cart data:", error);
+      });
+      // eslint-disable-next-line
+  }, []);
+
+  const addCart = (product) => {
+    const existingItem = cartCtx.cart.find((item) => item.id === product.id);
 
     if (existingItem) {
       const updatedItem = {
         ...existingItem,
         quantity: existingItem.quantity + 1,
       };
-      addToCart(updatedItem);
+      cartCtx.addCart(updatedItem);
+      axios.post(`${url}/cart${emailRegEx}`, updatedItem).catch((error) => {
+        // console.log("Error adding item to cart:", error);
+      });
     } else {
       const newCartItem = { ...product, quantity: 1 };
-      addToCart(newCartItem);
+      cartCtx.addCart(newCartItem);
+      axios.post(`${url}/cart${emailRegEx}`, newCartItem).catch((error) => {
+        // console.log("Error adding item to cart:", error);
+      });
     }
+
+    //   fetch(`${url}/cart${emailRegEx}`, {
+    //     method: "POST",
+    //     body: JSON.stringify(updatedItem),
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   });
+    // } else {
+    //   const newCartItem = { ...product, quantity: 1 };
+    //   cartCtx.addCart(newCartItem);
+    //   fetch(`${url}/cart${emailRegEx}`, {
+    //     method: "POST",
+    //     body: JSON.stringify(newCartItem),
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   });
+    // }
   };
+  // useEffect(() => {
+  //   fetch(`https://crudcrud.com/api/485e285c4d904b83925a5c459fd7ef53/cart`, {
+  //     method: "GET",
+  //   }).then(res=>JSON.stringify(res)).then(data=>addToCart(data));
+  // }, []);
 
   return (
     <div>
@@ -156,7 +209,7 @@ const ProductList = () => {
                       fontWeight: "bold",
                       marginBottom: "2rem",
                     }}
-                    onClick={() => handleAddToCart(product)}
+                    onClick={() => addCart(product)}
                   >
                     ADD TO CART
                   </Button>
@@ -168,6 +221,7 @@ const ProductList = () => {
       </Container>
     </div>
   );
+                  
 };
 
 export default ProductList;
